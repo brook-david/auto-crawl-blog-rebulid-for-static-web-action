@@ -1,0 +1,838 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>DB &#8211; DB`s Blog</title>
+	<atom:link href="https://blog.wanderto.top/author/user/feed/" rel="self" type="application/rss+xml" />
+	<link>https://blog.wanderto.top</link>
+	<description>随心录</description>
+	<lastBuildDate>Mon, 06 May 2024 14:37:53 +0000</lastBuildDate>
+	<language>zh-CN</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.4.3</generator>
+
+<image>
+	<url>https://blog.wanderto.top/wp-content/uploads/2024/04/cropped-logo33-32x32.png</url>
+	<title>DB &#8211; DB`s Blog</title>
+	<link>https://blog.wanderto.top</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>flanne自动部署工作节点失败记录</title>
+		<link>https://blog.wanderto.top/2024/04/29/flanne-failed-to-automatically-deploy-a-working-node-because-of-it/</link>
+					<comments>https://blog.wanderto.top/2024/04/29/flanne-failed-to-automatically-deploy-a-working-node-because-of-it/#respond</comments>
+		
+		<dc:creator><![CDATA[DB]]></dc:creator>
+		<pubDate>Mon, 29 Apr 2024 16:52:41 +0000</pubDate>
+				<category><![CDATA[问题记录]]></category>
+		<category><![CDATA[Flannel]]></category>
+		<category><![CDATA[K8S]]></category>
+		<guid isPermaLink="false">https://blog.wanderto.top/?p=1126</guid>
+
+					<description><![CDATA[<p>今天拔电源插头的时候拔错了，把服务器和路由那边的插头拔了，导致服务器重启。重启后工作节点上的pod一直在cre [&#8230;]</p>
+<p>&lt;p&gt;The post <a rel="nofollow" href="https://blog.wanderto.top/2024/04/29/flanne-failed-to-automatically-deploy-a-working-node-because-of-it/">flanne自动部署工作节点失败记录</a> first appeared on <a rel="nofollow" href="https://blog.wanderto.top">DB`s Blog</a>.&lt;/p&gt;</p>
+]]></description>
+										<content:encoded><![CDATA[
+<pre class="wp-block-preformatted">今天拔电源插头的时候拔错了，把服务器和路由那边的插头拔了，导致服务器重启。重启后工作节点上的pod一直在creating，发现是网络组件（flannel）一直在重试部署工作节点，用journalctl查看工作节点日志提示：
+loadFlannelSubnetEnv failed: open /run/flannel/subnet.env: no such file or directory
+
+一时丈二和尚摸不着头脑，折腾了一会突然想看看flannel的kubectl logs会不会有什么信息，结果发现连不上，这时恍然了，openvpn没连上了肯定是了。试ping了一下还真是，一看日志发现连接地址域名用的是alicloud.forseasioning.top,这个域名前两天我从Cloudflare转到了Gcore上，然后顺手删除了一些以为无用的DNS记录。。。。
+
+重新加上alicloud.forseasioning.top的DNS记录后恢复了openvpn连接，一切都自动恢复了。
+
+头脑风暴：
+1.这个文件感觉是不是控制节点通过网络主动发给工作节点的，不然为什么找不到，不过如果是通过网络节点发送的不是应该先提示网络问题吗？
+2.DNS删除两天了还没报错，看来DNS的本地记录在没有请求到新的实际有效的地址前一直都不会更新！</pre>
+<p>&lt;p&gt;The post <a rel="nofollow" href="https://blog.wanderto.top/2024/04/29/flanne-failed-to-automatically-deploy-a-working-node-because-of-it/">flanne自动部署工作节点失败记录</a> first appeared on <a rel="nofollow" href="https://blog.wanderto.top">DB`s Blog</a>.&lt;/p&gt;</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://blog.wanderto.top/2024/04/29/flanne-failed-to-automatically-deploy-a-working-node-because-of-it/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>WordPress-自定义CSS调整网站</title>
+		<link>https://blog.wanderto.top/2024/04/28/wordpress-custome-css-define-website/</link>
+					<comments>https://blog.wanderto.top/2024/04/28/wordpress-custome-css-define-website/#respond</comments>
+		
+		<dc:creator><![CDATA[DB]]></dc:creator>
+		<pubDate>Sun, 28 Apr 2024 10:12:30 +0000</pubDate>
+				<category><![CDATA[前端]]></category>
+		<category><![CDATA[CSS]]></category>
+		<category><![CDATA[WordPress]]></category>
+		<guid isPermaLink="false">https://blog.wanderto.top/?p=1120</guid>
+
+					<description><![CDATA[<p>标题自动添加序号 可以在文章的额外CSS里添加以下代码（去掉.post-template-default）。如 [&#8230;]</p>
+<p>&lt;p&gt;The post <a rel="nofollow" href="https://blog.wanderto.top/2024/04/28/wordpress-custome-css-define-website/">WordPress-自定义CSS调整网站</a> first appeared on <a rel="nofollow" href="https://blog.wanderto.top">DB`s Blog</a>.&lt;/p&gt;</p>
+]]></description>
+										<content:encoded><![CDATA[
+<h2 class="wp-block-heading">标题自动添加序号</h2>
+
+
+
+<pre class="wp-block-preformatted">可以在文章的额外CSS里添加以下代码（去掉.post-template-default）。如果不希望每个文章都手动添加的话可以把代码添加在主题自定义中的额外CSS中，但是会全局生效，所以要找到一些文章页面中特有的标记，我用的是默认文章模板设置的class，相当于为默认文章模板添加了这个功能。
+示例代码如下：</pre>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">/* 为post-template-default模板添加标题自动生成序号功能 begin */
+/* reset h2 counter to -1 when meet a h1 element */
+.post-template-default h1 {
+    counter-reset: h2Counter -1;
+}
+/* insert number before h2 element */
+.post-template-default h2:before {
+    content: counter(h2Counter)'. '
+}
+/* increase h2 counter and reset h3 counter when meet a h2 element */
+.post-template-default h2 {
+    counter-increment: h2Counter;
+    counter-reset: h3Counter;
+}
+.post-template-default h3:before {
+    content: counter(h2Counter) '.' counter(h3Counter) ' '
+}
+.post-template-default h3 {
+    counter-increment: h3Counter;
+}
+/* 为post-template-default模板添加标题自动生成序号功能 end */</pre>
+
+
+
+<pre class="wp-block-preformatted">参考：<a href="https://www.gnss.help/2016/10/23/css-counter/" target="_blank" rel="noreferrer noopener nofollow">https://www.gnss.help/2016/10/23/css-counter/</a></pre>
+<p>&lt;p&gt;The post <a rel="nofollow" href="https://blog.wanderto.top/2024/04/28/wordpress-custome-css-define-website/">WordPress-自定义CSS调整网站</a> first appeared on <a rel="nofollow" href="https://blog.wanderto.top">DB`s Blog</a>.&lt;/p&gt;</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://blog.wanderto.top/2024/04/28/wordpress-custome-css-define-website/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>k8s环境下处理容器时间问题的多种方式</title>
+		<link>https://blog.wanderto.top/2024/04/27/k8s-dispose-container-time-issue/</link>
+					<comments>https://blog.wanderto.top/2024/04/27/k8s-dispose-container-time-issue/#respond</comments>
+		
+		<dc:creator><![CDATA[DB]]></dc:creator>
+		<pubDate>Sat, 27 Apr 2024 18:41:26 +0000</pubDate>
+				<category><![CDATA[运维]]></category>
+		<category><![CDATA[K8S]]></category>
+		<category><![CDATA[转载]]></category>
+		<guid isPermaLink="false">https://blog.wanderto.top/?p=1091</guid>
+
+					<description><![CDATA[<p>本文章转载来源：https://www.cnblogs.com/ssgeek/p/15192028.html# [&#8230;]</p>
+<p>&lt;p&gt;The post <a rel="nofollow" href="https://blog.wanderto.top/2024/04/27/k8s-dispose-container-time-issue/">k8s环境下处理容器时间问题的多种方式</a> first appeared on <a rel="nofollow" href="https://blog.wanderto.top">DB`s Blog</a>.&lt;/p&gt;</p>
+]]></description>
+										<content:encoded><![CDATA[<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<div class="postBody">
+<h2 id="1背景概述">1、背景概述</h2>
+<p>在<code>Linux</code>环境下，默认安装操作系统时都需要正确设置系统的时区为当前所在的时区</p>
+<p>在容器环境下，除了业务镜像外，我们有很多情况都是使用的官方镜像或第三方镜像，而这些镜像一般都不是国人制作。因此使用这些镜像的时候，自然会有一个问题，即容器镜像的默认时区不正确</p>
+<p>简而言之，在容器环境中需要处理时间（时区）问题的原因一般有</p>
+<ul>
+<li>时间不对，和正确的（例如北京时间）有偏差</li>
+<li>时区不对，镜像默认时区和当前时区不符合</li>
+<li>某些特殊业务需要临时修改时间。例如电商秒杀业务，将时间设置超前或滞后，在内部测试业务的时间控制功能</li>
+</ul>
+<h2 id="2硬件时钟和系统时间">2、硬件时钟和系统时间</h2>
+<p>先来看看操作系统以及容器是如何获取时间的</p>
+<p>时钟一般分为硬件时钟（RTC，Real Time Clock）和操作系统时钟（OS，System Clock）</p>
+<p>硬件时钟跟运行在<code>cpu</code>上的程序是独立不相关的，甚至在服务器关机之后仍然可以正常运行，这就保证了服务器时间的正常运行，硬件时间也有着各种各样的称呼，例如：<code>hardware clock</code>, <code>real time clock</code>, <code>RTC</code>, <code>BIOS clock</code>以及<code>CMOS clock</code>等，在目前主流的服务器都采用<code>RTC</code>芯片实现</p>
+<p>操作系统时间称为系统时钟或者系统时间，这就是平时在系统中经常接触到的时间，也是应用程序在执行与时间相关的操作会用到的时间，它只是在系统运行时存在，其记录形式为<code>UTC</code>时间（the number of seconds since 00:00:00 January 1, 1970 UTC）</p>
+<p><strong>硬件时钟和系统时间的关系</strong></p>
+<p>硬件时钟是用来保证在操作系统关机之后仍然可以正常计时的必要硬件，而系统时间是我们在日常操作中才会经常使用到的时间，仅仅在操作系统初始化时，操作系统才会去<code>RTC</code>芯片中拿到硬件时钟的值，之后便是独立运行和独立计时</p>
+<p>时钟的运作机制如下</p>
+<p><img decoding="async" src="/wp-content/uploads/2024/04//20210827-01.png" alt="" loading="lazy" class="medium-zoom-image"></p>
+<h2 id="3linux中修改时间">3、Linux中修改时间</h2>
+<p>时间依赖时间标准，时间的表示有两个标准：<code>localtime</code>和<code>UTC</code>(Coordinated Universal Time)</p>
+<ul>
+<li>UTC 是与时区无关的全球时间标准。尽管概念上有差别，UTC 和 GMT (格林威治时间) 是一样的</li>
+<li>localtime 标准则依赖于当前时区</li>
+</ul>
+<p>时间标准由操作系统设定，<code>Windows</code>默认使用<code>localtime</code>，<code>Mac OS</code>默认使用<code>UTC</code>而<code>UNIX</code>系列的操作系统两者都有。使用<code>Linux</code>时，最好将硬件时钟设置为<code>UTC</code>标准，并在所有操作系统中使用。这样<code>Linux</code>系统就可以自动调整夏令时设置，而如果使用<code>localtime</code>标准那么系统时间不会根据夏令时自动调整</p>
+<p>通过如下命令可以检查当前设置，终端执行</p>
+<pre class="highlighter-hljs" highlighted="true"><code class="highlighter-hljs hljs language-lua">timedatectl <span class="hljs-built_in">status</span> | grep <span class="hljs-keyword">local</span>
+</code></pre>
+<p>硬件时间可以用 hwclock 命令设置，将硬件时间设置为<code>localtime</code></p>
+<pre class="highlighter-hljs" highlighted="true"><code class="highlighter-hljs hljs language-sql">timedatectl <span class="hljs-keyword">set</span><span class="hljs-operator">-</span><span class="hljs-keyword">local</span><span class="hljs-operator">-</span>rtc <span class="hljs-number">1</span>
+</code></pre>
+<p>硬件时间设置成<code>UTC</code>，终端执行</p>
+<pre class="highlighter-hljs" highlighted="true"><code class="highlighter-hljs hljs language-sql">timedatectl <span class="hljs-keyword">set</span><span class="hljs-operator">-</span><span class="hljs-keyword">local</span><span class="hljs-operator">-</span>rtc <span class="hljs-number">0</span>
+</code></pre>
+<p>上述命令会自动生成<code>/etc/adjtime</code>，无需单独设置</p>
+<p>在日常使用中，修改时间一般通过<code>date</code>修改日期时间，通过<code>hwclock</code>校准硬件时钟</p>
+<p>这里提到了<code>夏令时</code>，再分享一个有意思的事情，可能大多数人还不知道，我国在解放后是实行过夏令时的</p>
+<p><img decoding="async" src="/wp-content/uploads/2024/04//20210827-02.png" alt="" loading="lazy" class="medium-zoom-image"></p>
+<h2 id="4尝试在容器中修改时间">4、尝试在容器中修改时间</h2>
+<p>在容器中能否通过<code>date</code>修改日期时间，通过<code>hwclock</code>校准硬件时钟？</p>
+<p>事实上是不可以的，在容器内部通过默认权限修改时间会报错</p>
+<p><img decoding="async" src="/wp-content/uploads/2024/04//20210827-03.png" alt="" loading="lazy" class="medium-zoom-image"></p>
+<p>这是因为容器的隔离是基于<code>Linux</code>的<code>Capability</code>机制实现的，可以通过给容器添加<code>--privileged</code>或<code>--cap-add SYS_TIME</code>来实现目的，但并不推荐，因为这样会直接影响到容器所在主机的时间</p>
+<p><code>Linux</code>内核中将<code>timekeeper</code>设置为全局变量，所以只要去修改系统时间，这个影响就是内核层面的，所以在<code>docker</code>的实现中默认是禁止在容器内修改时间的，因为容器与虚拟化的区别就在于是否共享内核，这就意味着一旦在容器中修改了时间，这个影响就是全局性的</p>
+<h2 id="5处理时间问题的多种姿势">5、处理时间问题的多种姿势</h2>
+<p>前面聊得有点多，该到重点了</p>
+<p>在<code>k8s</code>环境下如何处理容器的时间，也就是<code>pod</code>的时间</p>
+<p>在处理之前，先保证<code>pod</code>宿主机<code>node</code>的时间同步及时区设置正常，和当前时间一样</p>
+<pre class="highlighter-hljs" highlighted="true"><code class="language-shell highlighter-hljs hljs"><span class="hljs-meta"># </span><span class="language-bash">timedatectl</span>
+      Local time: Thu 2021-08-26 00:16:28 CST
+  Universal time: Thu 2021-08-26 16:16:28 UTC
+        RTC time: Thu 2021-08-26 16:16:28
+       Time zone: Asia/Shanghai (CST, +0800)
+     NTP enabled: yes
+NTP synchronized: yes
+ RTC in local TZ: no
+      DST active: n/a
+</code></pre>
+<p>下面分享处理容器时间的多种方法，主要分为两个方向，校准时间和调整时间</p>
+<h3 id="51-在dockerfile中添加时区">5.1 在Dockerfile中添加时区</h3>
+<p>为了便于操作，一劳永逸，可以通过在<code>Dockerfile</code>中添加时区</p>
+<pre class="highlighter-hljs" highlighted="true"><code class="language-shell highlighter-hljs hljs"><span class="hljs-meta"># </span><span class="language-bash">Set timezone</span>
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+		 &amp;&amp; echo "Asia/Shanghai" &gt; /etc/timezone
+</code></pre>
+<p>这种做法对于自制的业务镜像来说很方便，也很容易操作，毕竟只需要在通过<code>Dockerfile</code>制作业务镜像添加此内容即可</p>
+<h3 id="52-将时区文件挂载到pod中">5.2 将时区文件挂载到Pod中</h3>
+<p>在定义<code>pod</code>上层控制器的时候，添加一个用于挂载时区的卷，挂载宿主机的时区文件</p>
+<pre class="highlighter-hljs" highlighted="true"><code class="language-yaml highlighter-hljs hljs"><span class="hljs-string">...</span>
+  <span class="hljs-attr">containers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">xxx</span>
+<span class="hljs-string">...</span>
+    <span class="hljs-attr">volumeMounts:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">timezone</span>
+        <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/etc/localtime</span>
+  <span class="hljs-attr">volumes:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">timezone</span>
+      <span class="hljs-attr">hostPath:</span>
+        <span class="hljs-attr">path:</span> <span class="hljs-string">/usr/share/zoneinfo/Asia/Shanghai</span>
+</code></pre>
+<h3 id="53-通过环境变量定义时区">5.3 通过环境变量定义时区</h3>
+<p>同样的，在定义<code>pod</code>上层控制器的时候，添加一个用于指定时区的环境变量</p>
+<p><code>TZ</code> 环境变量用于设置时区。它由各种时间函数用于计算相对于全球标准时间<code>UTC</code>（以前称为格林威治标准时间 <code>GMT</code>）的时间。格式由操作系统指定</p>
+<pre class="highlighter-hljs" highlighted="true"><code class="language-yaml highlighter-hljs hljs"><span class="hljs-string">...</span>
+  <span class="hljs-attr">containers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">xxx</span>
+<span class="hljs-string">...</span>
+    <span class="hljs-attr">env:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">TZ</span>
+      <span class="hljs-attr">value:</span> <span class="hljs-string">Asia/Shanghai</span>
+</code></pre>
+<h3 id="54-通过podpreset全局修改时间">5.4 通过PodPreset全局修改时间</h3>
+<p>往往遇到修改<code>Pod</code>时区的需求，都是要求所有的<code>Pod</code>都在同一个时区，按照前面的方式需要我们对每一个<code>Pod</code>手动做这样的操作，在<code>k8s</code>环境下更好的方式就是利用<code>PodPreset</code>来预设时间，<code>PodPreset</code>可以在容器启动的时候注入一些信息</p>
+<blockquote>
+<p><code>PodPreset</code>在<code>1.20</code>版本后被移除了，我也没找到什么原因</p>
+</blockquote>
+<p>如果是<code>1.20</code>以前的版本，具体配置方法如下</p>
+<p>首先启用<code>PodPreset</code></p>
+<pre class="highlighter-hljs" highlighted="true"><code class="highlighter-hljs hljs language-lua"># 在 kube-apiserver 启动参数 -runtime-<span class="hljs-built_in">config</span> 增加 settings.k8s.<span class="hljs-built_in">io</span>/v1alpha1=<span class="hljs-literal">true</span>;
+—runtime-<span class="hljs-built_in">config</span>=rbac.authorization.k8s.<span class="hljs-built_in">io</span>/v1alpha1=<span class="hljs-literal">true</span>,settings.k8s.<span class="hljs-built_in">io</span>/v1alpha1=<span class="hljs-literal">true</span>
+# 然后在 <span class="hljs-comment">--admission-control 增加 PodPreset 启用</span>
+—admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota,PodPreset
+</code></pre>
+<p>修改好后重启服务，查看是否有<code>podpresets api</code>类型</p>
+<pre class="highlighter-hljs" highlighted="true"><code class="language-shell highlighter-hljs hljs">kubectl api-resources |grep podpresets
+</code></pre>
+<p>创建<code>PodPresents</code>资源对象</p>
+<pre class="highlighter-hljs" highlighted="true"><code class="language-yaml highlighter-hljs hljs"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">settings.k8s.io/v1alpha1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">PodPreset</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">tz-env</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">selector:</span>
+    <span class="hljs-attr">matchLabels:</span>
+  <span class="hljs-attr">env:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">TZ</span>
+    <span class="hljs-attr">values:</span> <span class="hljs-string">Asia/Shanghai</span>
+</code></pre>
+<p>这里需要注意的地方是，一定需要写<code>selector...matchLabels</code>，尽管<code>matchLabels</code>为空，表示应用于所有容器，创建上面这个资源对象，然后再去创建一个普通的<code>Pod</code>可以查看下是否注入了上面的<code>TZ</code>这个环境变量</p>
+<p>需要注意的是，<code>PodPreset</code>是<code>namespace</code>级别的对象，其作用范围只能是同一个命名空间下的容器</p>
+<h3 id="55-调整时间到预设值">5.5 调整时间到预设值</h3>
+<p>以上方法都是用于校准时间，如果需要在<code>pod</code>容器中调整时间，也是有解决办法的，目的是将时间调整到一个预设的时间</p>
+<p>这里的方法实现主要原理是在<code>OS</code>层面拦截系统时间欺骗应用，实现返回任意的时间给应用层使用</p>
+<p>拦截的主要思路是以动态库的加载为基础的，采用<code>LD_PRELOAD</code>机制，自行实现这个方法并编译成动态库依靠动态库加载的先后顺序来覆盖原始的方法</p>
+<p>已经有<a href="https://github.com/wolfcw/libfaketime" target="_blank" rel="noopener">libfaketime项目</a>实现，按照其文档，主要步骤为</p>
+<ul>
+<li>克隆代码进行编译</li>
+</ul>
+<pre class="highlighter-hljs" highlighted="true"><code class="language-shell highlighter-hljs hljs">git clone https://github.com/wolfcw/libfaketime.git
+cd libfaketime  &amp;&amp; make install
+</code></pre>
+<ul>
+<li>编译完成后，把库文件拷贝到容器中</li>
+</ul>
+<pre class="highlighter-hljs" highlighted="true"><code class="language-shell highlighter-hljs hljs">docker cp /usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1 e6e239e5fba7:/usr/local/lib/
+</code></pre>
+<ul>
+<li>再进入容器中执行命令改变环境变量</li>
+</ul>
+<pre class="highlighter-hljs" highlighted="true"><code class="language-shell highlighter-hljs hljs">export LD_PRELOAD=/usr/local/lib/libfaketime.so.1 FAKETIME="-5d"
+</code></pre>
+<p>容器环境下，手动按照上面的步骤操作是可以生效的，唯一不足的就是一旦容器重启就会失效</p>
+<p>在容器(<code>k8s</code>环境)中如何解决?</p>
+<p>前面的步骤可以将编译完的库文件通过<code>dockerfile</code>打包到镜像中，如果需要修改时间，只需要在<code>Pod</code>控制器定义时添加环境变量即可</p>
+<pre class="highlighter-hljs" highlighted="true"><code class="language-yaml highlighter-hljs hljs"><span class="hljs-string">...</span>
+  <span class="hljs-attr">containers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">xxx</span>
+<span class="hljs-string">...</span>
+    <span class="hljs-attr">env:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">LD_PRELOAD</span>
+      <span class="hljs-attr">value:</span> <span class="hljs-string">"/usr/local/lib/libfaketime.so.1"</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">FAKETIME</span>
+      <span class="hljs-attr">value:</span> <span class="hljs-string">"-5d"</span>
+</code></pre>
+<p>另外一种思路是，时间调整一般是暂时的，以及多<code>pod</code>时间同步的需求，将<code>LD_PRELOAD</code>的打开与否放到应用的运行环境中，采用<code>configmap</code>作为应用时间的标准，将时间变更值<code>faketime</code>作为<code>configmap</code></p>
+<pre class="highlighter-hljs" highlighted="true"><code class="language-yaml highlighter-hljs hljs"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ConfigMap</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">faketimerc</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">default</span>
+<span class="hljs-attr">data:</span>
+  <span class="hljs-attr">faketimerc:</span> <span class="hljs-string">|
+    +10d
+</span></code></pre>
+<p>最后所有的<code>pod</code>都以<code>volume</code>的形式挂载该<code>configmap</code></p>
+<pre class="highlighter-hljs" highlighted="true"><code class="language-yaml highlighter-hljs hljs"><span class="hljs-string">...</span>
+  <span class="hljs-attr">containers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">xxx</span>
+<span class="hljs-string">...</span>
+    <span class="hljs-attr">volumeMounts:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">faketimerc</span>
+        <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/etc/faketimerc</span>
+  <span class="hljs-attr">volumes:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">faketimerc</span>
+      <span class="hljs-attr">configMap:</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">faketimerc</span>
+        <span class="hljs-attr">items:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">faketimerc</span>
+          <span class="hljs-attr">path:</span> <span class="hljs-string">faketimerc</span>
+</code></pre>
+<blockquote>
+<p>参考：</p>
+<p><a href="https://developer.toradex.com/knowledge-base/how-to-use-the-real-time-clock-in-linux" target="_blank" rel="noopener">https://developer.toradex.com/knowledge-base/how-to-use-the-real-time-clock-in-linux</a></p>
+<p><a href="https://wiki.deepin.org/wiki/%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%B6%E5%8C%BA" target="_blank" rel="noopener">https://wiki.deepin.org/wiki/时间和时区</a></p>
+<p><a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.20.md#deprecation" target="_blank" rel="noopener">https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.20.md#deprecation</a></p>
+</blockquote>
+
+</div>
+<div class="clear"></div>
+</div>
+		</div>
+	
+	</div>
+	
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<pre class="wp-block-preformatted"><strong><em>本文章转载来源</em></strong>：<a href="https://www.cnblogs.com/ssgeek/p/15192028.html#51-%E5%9C%A8dockerfile%E4%B8%AD%E6%B7%BB%E5%8A%A0%E6%97%B6%E5%8C%BA" target="_blank" rel="noreferrer noopener nofollow">https://www.cnblogs.com/ssgeek/p/15192028.html#51-%E5%9C%A8dockerfile%E4%B8%AD%E6%B7%BB%E5%8A%A0%E6%97%B6%E5%8C%BA</a></pre>
+<p>&lt;p&gt;The post <a rel="nofollow" href="https://blog.wanderto.top/2024/04/27/k8s-dispose-container-time-issue/">k8s环境下处理容器时间问题的多种方式</a> first appeared on <a rel="nofollow" href="https://blog.wanderto.top">DB`s Blog</a>.&lt;/p&gt;</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://blog.wanderto.top/2024/04/27/k8s-dispose-container-time-issue/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>建站记录</title>
+		<link>https://blog.wanderto.top/2024/04/26/web-build-record/</link>
+					<comments>https://blog.wanderto.top/2024/04/26/web-build-record/#respond</comments>
+		
+		<dc:creator><![CDATA[DB]]></dc:creator>
+		<pubDate>Fri, 26 Apr 2024 08:57:13 +0000</pubDate>
+				<category><![CDATA[运维]]></category>
+		<category><![CDATA[Helm]]></category>
+		<category><![CDATA[K8S]]></category>
+		<category><![CDATA[OpenVPN]]></category>
+		<guid isPermaLink="false">https://blog.wanderto.top/?p=1021</guid>
+
+					<description><![CDATA[<p>前言 本篇文章聊聊本站的部署情况，我买的是阿里云的一年99￥的ECS，这样的配置有点太低了，所以我把自己的下岗 [&#8230;]</p>
+<p>&lt;p&gt;The post <a rel="nofollow" href="https://blog.wanderto.top/2024/04/26/web-build-record/">建站记录</a> first appeared on <a rel="nofollow" href="https://blog.wanderto.top">DB`s Blog</a>.&lt;/p&gt;</p>
+]]></description>
+										<content:encoded><![CDATA[
+<h2 class="wp-block-heading">前言</h2>
+
+
+
+<pre class="wp-block-preformatted">本篇文章聊聊本站的部署情况，我买的是阿里云的一年99￥的ECS，这样的配置有点太低了，所以我把自己的下岗笔记本改成了一台服务器放在家里跑着，云服务器作为一个公网流量入口和集群控制平台，而本地的服务作为工作节点和数据存储位置。
+
+<strong>集群配置</strong>：为了集群配置初始化方便快捷，我将K8s相关组件配置都用YAML文件存储了下来，将他们通过一定的组织形式写入到了init.sh脚本中。如果我需要重建集群，我可以直接运行这个脚本，立刻能够构建出与现在完全相同的集群环境。
+
+<strong>网络环境</strong>：K8s的集群环境必需是内网，其间的Pod才能相互以IP进行通信，所以必需打通云服务与本地服务的网络。我用的是OpenVPN，服务端装在云服务器上，本地服务安装客户端主动连接VPN服务，并且服务端开启了OpenVPN的双向通信，服务端与客户端相互之间可以直接以对方局域网IP进行通信。
+
+<strong>数据存储</strong>：为了让数据存储方便，我使用了K8s的OpenEBS插件将工作节点的磁盘做为存储位置，这样让我能更好的操作这些数据。<em>虽然存放在本地的文件比较安全，不过后续我可能会将这些<strong>数据</strong>定期<strong>上传到Github</strong>平台，以应对本地数据丢失的风险。另外本地服务器有可能会因为一些原因导致服务不可用（断网，断电），所以我打算把本站的相关页面以<strong>静态数据</strong>的形式下载并<strong>上传到Github</strong>平台，然后在Ingress中配置，如果服务不可用，就转而拉取这些静态数据返回，并且定期同步数据上去，这样如果因为意外情况，或者是临时不得不将本地服务停机也不会导致本站失联，后续完成后会修改并同步这部分内容。</em>
+</pre>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">集群配置</h2>
+
+
+
+<pre class="wp-block-preformatted">为了能够更灵活的调整我的配置，我为每个模块都分配了init.sh脚本，以使它们能自由配置自己要初始化的内容，如下：</pre>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">k8s
+├── init.sh
+├── config
+│   └── kubeadm-init-config.conf
+├── header_source.sh
+├── readme
+└── yaml
+    ├── app
+    │   └── wordpress
+    │       ├── blog-web
+    │       │   ├── ingress
+    │       │   │   ├── backup
+    │       │   │   │   ├── uncdn-wp-web-ingress.yaml
+    │       │   │   │   └── wp-web-ingress.yaml
+    │       │   │   ├── none-wp-web-ingress.yaml
+    │       │   │   ├── uncdn-wp-web-ingress.yaml
+    │       │   │   ├── wp-web-ingress.yaml
+    │       │   │   └── www-wp-web-ingress.yaml
+    │       │   ├── init.sh
+    │       │   ├── secret
+    │       │   │   ├── my-wordpress-mariadb.yaml
+    │       │   │   └── my-wordpress.yaml
+    │       │   ├── storage
+    │       │   │   ├── 1-pv
+    │       │   │   │   ├── data-my-wordpress-mariadb-0-pv.yaml
+    │       │   │   │   └── my-wordpress-pv.yaml
+    │       │   │   └── 2-pvc
+    │       │   │       ├── data-my-wordpress-mariadb-0-pvc.yaml
+    │       │   │       └── my-wordpress-pvc.yaml
+    │       │   └── uninit.sh
+    │       ├── init.sh
+    │       ├── pic-web
+    │       │   ├── ingress
+    │       │   │   ├── backup
+    │       │   │   │   ├── uncdn-wp-web-ingress.yaml
+    │       │   │   │   └── wp-web-ingress.yaml
+    │       │   │   └── wp-web-ingress.yaml
+    │       │   ├── init.sh
+    │       │   ├── secret
+    │       │   │   ├── my-wordpress-mariadb.yaml
+    │       │   │   └── my-wordpress.yaml
+    │       │   ├── storage
+    │       │   │   ├── 1-pv
+    │       │   │   │   ├── data-my-wordpress-mariadb-0-pv.yaml
+    │       │   │   │   └── my-wordpress-pv.yaml
+    │       │   │   └── 2-pvc
+    │       │   │       ├── data-my-wordpress-mariadb-0-pvc.yaml
+    │       │   │       └── my-wordpress-pvc.yaml
+    │       │   └── uninit.sh
+    │       └── uninit.sh
+    ├── init.sh
+    ├── network
+    │   ├── cert-manager
+    │   │   ├── cert-manager.crds.yaml
+    │   │   ├── cert-manager.custom.yaml
+    │   │   ├── init.sh
+    │   │   ├── ssl
+    │   │   │   ├── letsencrypt-issuer-backup.yaml
+    │   │   │   └── letsencrypt-issuer.yaml
+    │   │   └── uninit.sh
+    │   ├── ingress-controller
+    │   │   ├── file
+    │   │   │   ├── crds.yaml
+    │   │   │   └── nginx-ingress-controller.yaml
+    │   │   ├── init.sh
+    │   │   ├── prepare
+    │   │   └── uninit.sh
+    │   ├── init.sh
+    │   ├── kube-flannel.yaml
+    │   └── uninit.sh
+    ├── storage-class
+    │   ├── init.sh
+    │   ├── openEBS
+    │   │   └── lite
+    │   │       ├── openebs-lite-sc.yaml
+    │   │       ├── openebs-operator-lite.yaml
+    │   │       └── test-unuse
+    │   │           ├── local-hostpath-pod.yaml
+    │   │           └── test-pvc.yaml
+    │   └── uninit.sh
+    └── uninit.sh</pre>
+
+
+
+<pre class="wp-block-preformatted">init.sh（main文件）内容如下：</pre>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">. "$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&amp;1 &amp;&amp; _pwd=$(pwd) &amp;&amp; echo ${_pwd%%'/k8s'*})"/k8s/header_source.sh
+
+echo '#== start init process ==#'
+echo '#== init env ==#'
+kubectl create namespace blog-web
+kubectl create namespace picture-web
+kubectl create namespace cert-manager
+
+# init config
+$_DIR/yaml/init.sh
+
+echo '#== end init process ==#'</pre>
+
+
+
+<pre class="wp-block-preformatted">集群初始化代码如下：</pre>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">#启动集群
+kubeadm init --config=k8s/config/kubeadm-init-config.conf
+
+#初始化集群环境
+./k8s/init.sh</pre>
+
+
+
+<pre class="wp-block-preformatted">也许有人注意到了，初始化配置中并没有WordPress应用的部署。WordPress的pv/pvc和secret已经被我在初始化配置中提前创建。而WordPress直接用Helm来进行管理，如下：</pre>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">#blog web
+helm install my-wordpress bitnami/wordpress --version 19.4.3 -n blog-web
+#scenery web
+helm install my-wordpress bitnami/wordpress --version 19.4.3 -n picture-web</pre>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">网络</h2>
+
+
+
+<pre class="wp-block-preformatted">云服务与本地服务需要构建一个私有网络通道，我使用的是openvpn，安装参考：<a href="https://blog.csdn.net/shenql_/article/details/132266626" target="_blank" rel="noreferrer noopener nofollow">Linux系统搭建搭建OpenVPN</a>。
+
+然后需要在服务端开启主动与客户端通信的能力，需要告诉openvpn服务器12.22.2.102<sup data-fn="5f30c3c0-3a90-483c-bab9-c3659cb45f20" class="fn"><a href="#5f30c3c0-3a90-483c-bab9-c3659cb45f20" id="5f30c3c0-3a90-483c-bab9-c3659cb45f20-link">1</a></sup>网络所在的位置，在ccd目录下创建一个客户端配置文件，然后在其中配置一个iroute来映射12.22.2.102的位置，如下：</pre>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">[root@iZbp1605iwejf5qgem2c7hZ ~]# tree /etc/openvpn/
+/etc/openvpn/
+├── ccd
+│   └── client
+├── client
+├── ipp.txt
+├── openvpn-status.log
+├── server
+└── server.conf
+[root@iZbp1605iwejf5qgem2c7hZ ~]# cat /etc/openvpn/ccd/client
+iroute 12.22.2.0 255.255.255.0</pre>
+
+
+
+<pre class="wp-block-preformatted">文档参考：<a href="https://community.openvpn.net/openvpn/wiki/RoutedLans" target="_blank" rel="noreferrer noopener nofollow">Lans behind OpenVPN</a></pre>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">存储</h2>
+
+
+
+<pre class="wp-block-preformatted">OpenEBS让集群能够自动生成绑定在本地机器上的PV/PVC的能力，不过它的策略是卸载后删除，如果误操作还是会丢失掉本地文件数据，所以在WordPress部署后将其PV/PVC复制一份下来存储到YAML文件中，并修改PV中的SC<sup data-fn="4959a241-a79f-4565-abe8-7fb1f838250d" class="fn"><a href="#4959a241-a79f-4565-abe8-7fb1f838250d" id="4959a241-a79f-4565-abe8-7fb1f838250d-link">2</a></sup>（storageClassName）与删除策略（persistentVolumeReclaimPolicy），如下：</pre>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pvc-2705f22b-f993-49d8-b82e-4a18804725b3
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 10Gi
+  hostPath:
+    path: /var/openebs/local/pvc-ee079675-34ad-49c7-b59e-1922d06ae731-blog-web
+    type: DirectoryOrCreate # 或者使用 Directory，取决于你的需求
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - localhost.localdomain
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: wordpress-storage
+  volumeMode: Filesystem</pre>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+<ol class="wp-block-footnotes"><li id="5f30c3c0-3a90-483c-bab9-c3659cb45f20">这是一个客户端的局域网IP <a href="#5f30c3c0-3a90-483c-bab9-c3659cb45f20-link" aria-label="跳转到脚注引用 1"><img src="https://s.w.org/images/core/emoji/14.0.0/72x72/21a9.png" alt="↩" class="wp-smiley" style="height: 1em; max-height: 1em;" />︎</a></li><li id="4959a241-a79f-4565-abe8-7fb1f838250d">storageClassName可以随意命名，如果没有实际的SC那么它就相关一个命名空间的作用，hostPath会自动绑定对应的目录 <a href="#4959a241-a79f-4565-abe8-7fb1f838250d-link" aria-label="跳转到脚注引用 2"><img src="https://s.w.org/images/core/emoji/14.0.0/72x72/21a9.png" alt="↩" class="wp-smiley" style="height: 1em; max-height: 1em;" />︎</a></li></ol><p>&lt;p&gt;The post <a rel="nofollow" href="https://blog.wanderto.top/2024/04/26/web-build-record/">建站记录</a> first appeared on <a rel="nofollow" href="https://blog.wanderto.top">DB`s Blog</a>.&lt;/p&gt;</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://blog.wanderto.top/2024/04/26/web-build-record/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>WordPress站点加速优化-CDN/插件</title>
+		<link>https://blog.wanderto.top/2024/04/25/wordpress-cache-optimize/</link>
+					<comments>https://blog.wanderto.top/2024/04/25/wordpress-cache-optimize/#respond</comments>
+		
+		<dc:creator><![CDATA[DB]]></dc:creator>
+		<pubDate>Thu, 25 Apr 2024 04:37:51 +0000</pubDate>
+				<category><![CDATA[网站优化]]></category>
+		<category><![CDATA[CDN]]></category>
+		<category><![CDATA[WordPress]]></category>
+		<category><![CDATA[WP插件]]></category>
+		<category><![CDATA[杂谈]]></category>
+		<category><![CDATA[缓存]]></category>
+		<guid isPermaLink="false">https://blog.wanderto.top/?p=976</guid>
+
+					<description><![CDATA[<p>前言 本站网站的入口带宽太小，简单单页面加载都要3秒左右时间。使用CDN可以减轻服务自身压力，缓存可以加快网站 [&#8230;]</p>
+<p>&lt;p&gt;The post <a rel="nofollow" href="https://blog.wanderto.top/2024/04/25/wordpress-cache-optimize/">WordPress站点加速优化-CDN/插件</a> first appeared on <a rel="nofollow" href="https://blog.wanderto.top">DB`s Blog</a>.&lt;/p&gt;</p>
+]]></description>
+										<content:encoded><![CDATA[
+<div class="wp-block-group is-layout-constrained wp-block-group-is-layout-constrained">
+<h2 class="wp-block-heading">前言</h2>
+
+
+
+<pre class="wp-block-preformatted">本站网站的入口带宽太小，简单单页面加载都要3秒左右时间。使用CDN可以减轻服务自身压力，缓存可以加快网站生成速度，本篇文章记录了本站使用过的CDN和缓存插件，后续有调整也会同步</pre>
+
+
+
+<h2 class="wp-block-heading">CDN</h2>
+
+
+
+<div class="wp-block-group is-vertical is-layout-flex wp-container-core-group-layout-1 wp-block-group-is-layout-flex">
+<h3 class="wp-block-heading">CloudFlare</h3>
+
+
+
+<pre class="wp-block-preformatted"><a href="https://dash.cloudflare.com/" data-type="link" data-id="https://dash.cloudflare.com/" target="_blank" rel="noreferrer noopener nofollow">CloudFlare</a>很好用的一个域名管理平台，提供了免费的CDN，虽然免费不过效果还不错。</pre>
+</div>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h2 class="wp-block-heading">插件</h2>
+
+
+
+<div class="wp-block-group is-vertical is-layout-flex wp-container-core-group-layout-2 wp-block-group-is-layout-flex">
+<h3 class="wp-block-heading"><s><strong>Jetpack</strong></s></h3>
+
+
+
+<pre class="wp-block-preformatted">这个插件功能非常丰富，但是基本都是收费的，不过缓存相关的功能有免费版本。开启后它会把一些css、js还有图片等文件缓存在自己的服务器上，然后修改页面请求地址到自己的服务器上，以减轻主服务器压力，加快页面加载速度。
+
+不过刚开始用着是还不错，有明显的提升，用了几天后它的服务器就莫名的不稳定了。因为浏览器有本地缓存不太好看出来，但是开个无痕模式整个页面就加载不出来，请求到它的服务器的文件基本一片红。
+
+也许是过了免费期吧，可能收费模式会比较好用。</pre>
+
+
+
+<h3 class="wp-block-heading">LiteSpeed Cache</h3>
+
+
+
+<pre class="wp-block-preformatted">目前在用的一个插件，功能比较丰富，可以针对性的对文本文件和图片进行缓存。插件上看上去没有收费的功能，基本全免费，而且比较吸引人的是它的Screenshots，和其他插件比优化效果非常好，不过也有自吹的可能，具体能优化成什么样还得看怎么配置吧，它提供的优化方面很多。
+
+缓存开启后就有比较明显的效果，当前如果图片比较多应该效果还不太够。该插件提供的外部优化是CDN的方式，所以不会有Jetpack那种问题，它可以接入多个平台的CDN，其中有一个是CloudFlare，我的域名就托管在上面。不过CloudFlare本身就提供了免费的CDN，之前Jetpack优化效果好的时候没有打开，因为页面是https的过CDN要也需要开启https，两次https通信处理有一点影响速度，现在只能开启了。
+
+不过这个插件还有好多功能选项我还没试，还可以再研究一下。</pre>
+</div>
+</div>
+<p>&lt;p&gt;The post <a rel="nofollow" href="https://blog.wanderto.top/2024/04/25/wordpress-cache-optimize/">WordPress站点加速优化-CDN/插件</a> first appeared on <a rel="nofollow" href="https://blog.wanderto.top">DB`s Blog</a>.&lt;/p&gt;</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://blog.wanderto.top/2024/04/25/wordpress-cache-optimize/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Nginx Ingress域名重定向</title>
+		<link>https://blog.wanderto.top/2024/04/22/nginx-ingress-redirect/</link>
+					<comments>https://blog.wanderto.top/2024/04/22/nginx-ingress-redirect/#respond</comments>
+		
+		<dc:creator><![CDATA[DB]]></dc:creator>
+		<pubDate>Mon, 22 Apr 2024 05:22:34 +0000</pubDate>
+				<category><![CDATA[运维]]></category>
+		<category><![CDATA[K8S]]></category>
+		<category><![CDATA[Nginx]]></category>
+		<guid isPermaLink="false">https://blog.wanderto.top/?p=912</guid>
+
+					<description><![CDATA[<p>前言 由于本站主域名为blog.wanderto.top，但是又希望wanderto.top也能访问本站。多个 [&#8230;]</p>
+<p>&lt;p&gt;The post <a rel="nofollow" href="https://blog.wanderto.top/2024/04/22/nginx-ingress-redirect/">Nginx Ingress域名重定向</a> first appeared on <a rel="nofollow" href="https://blog.wanderto.top">DB`s Blog</a>.&lt;/p&gt;</p>
+]]></description>
+										<content:encoded><![CDATA[
+<div class="wp-block-group is-layout-constrained wp-block-group-is-layout-constrained">
+<div class="wp-block-group is-vertical is-layout-flex wp-container-core-group-layout-4 wp-block-group-is-layout-flex">
+<h2 class="wp-block-heading">前言</h2>
+
+
+
+<pre class="wp-block-preformatted">由于本站主域名为blog.wanderto.top，但是又希望wanderto.top也能访问本站。多个域名指向网站不利于SEO，所以采用重定向的方式。本篇文章主要记录两种k8s中Nginx Ingress Controller重定向域名的方法</pre>
+</div>
+
+
+
+<div class="wp-block-group is-layout-constrained wp-block-group-is-layout-constrained">
+<h2 class="wp-block-heading">Permanent Redirect</h2>
+
+
+
+<pre class="wp-block-preformatted" style="margin-top:0;margin-bottom:0">redirect主要用于域名重定向，比如访问a.com被重定向到b.com
+如下我们配置访问ng.coolops.com重定向到www.baidu.com</pre>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="yaml" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-nginx
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/permanent-redirect: "https://www.baidu.com"
+spec:
+  rules:
+  - host: ng.coolops.cn 
+    http:
+      paths:
+      - path:
+        backend:
+          serviceName: ng-svc
+          servicePort: 80</pre>
+
+
+
+<pre class="wp-block-preformatted" style="margin-top:0;margin-bottom:0">以上参考自：<a href="https://cloud.tencent.com/developer/article/1628571" target="_blank" rel="noreferrer noopener nofollow">https://cloud.tencent.com/developer/article/1628571</a>
+
+按以上这种方式尝试使用nginx.ingress.kubernetes.io/permanent-redirect但是没生效，不知道为什么，我的版本是最新的，应该支持才是。而且我在<a href="https://docs.nginx.com/nginx-ingress-controller" data-type="link" data-id="https://docs.nginx.com/nginx-ingress-controller" target="_blank" rel="noreferrer noopener nofollow">官方文档</a>也没有看到这种方式</pre>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+</div>
+
+
+
+<div class="wp-block-group is-layout-constrained wp-block-group-is-layout-constrained">
+<h2 class="wp-block-heading">Snippet</h2>
+
+
+
+<pre class="wp-block-preformatted" style="margin-top:0;margin-bottom:0">官方文档中有另一种可行的方式，同样是在Ingress中添加一个annotation，不过会复杂点，参考：<a href="https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-snippets/" data-type="link" data-id="https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-snippets/" target="_blank" rel="noreferrer noopener">sni</a><a href="https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-snippets/" data-type="link" data-id="https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-snippets/" target="_blank" rel="noreferrer noopener nofollow">p</a><a href="https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-snippets/" data-type="link" data-id="https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-snippets/" target="_blank" rel="noreferrer noopener">pet</a></pre>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="yaml" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">  annotations:
+    nginx.org/server-snippets: |
+      if ($host = 'old.example.com') {
+        return 301 https://new..example.com;
+      }</pre>
+
+
+
+<pre class="wp-block-preformatted" style="margin-top:0;margin-bottom:0">通过使用脚本的方式重定向，不过默认是关闭这个功能的，需要开启，参考：<a href="https://docs.nginx.com/nginx-ingress-controller/configuration/global-configuration/command-line-arguments#cmdoption-enable-snippets" data-type="link" data-id="https://docs.nginx.com/nginx-ingress-controller/configuration/global-configuration/command-line-arguments#cmdoption-enable-snippets" target="_blank" rel="noreferrer noopener nofollow">相关文档</a></pre>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+</div>
+</div>
+
+
+<p>&lt;p&gt;The post <a rel="nofollow" href="https://blog.wanderto.top/2024/04/22/nginx-ingress-redirect/">Nginx Ingress域名重定向</a> first appeared on <a rel="nofollow" href="https://blog.wanderto.top">DB`s Blog</a>.&lt;/p&gt;</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://blog.wanderto.top/2024/04/22/nginx-ingress-redirect/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>打个点！</title>
+		<link>https://blog.wanderto.top/2024/04/21/%e6%89%93%e4%b8%aa%e7%82%b9%ef%bc%81/</link>
+					<comments>https://blog.wanderto.top/2024/04/21/%e6%89%93%e4%b8%aa%e7%82%b9%ef%bc%81/#respond</comments>
+		
+		<dc:creator><![CDATA[DB]]></dc:creator>
+		<pubDate>Sun, 21 Apr 2024 15:06:56 +0000</pubDate>
+				<category><![CDATA[GGBond]]></category>
+		<category><![CDATA[TODO]]></category>
+		<guid isPermaLink="false">https://blog-uncdn.wanderto.top/?p=910</guid>
+
+					<description><![CDATA[<p>TODO为私密内容，为标签正常显示打个点！</p>
+<p>&lt;p&gt;The post <a rel="nofollow" href="https://blog.wanderto.top/2024/04/21/%e6%89%93%e4%b8%aa%e7%82%b9%ef%bc%81/">打个点！</a> first appeared on <a rel="nofollow" href="https://blog.wanderto.top">DB`s Blog</a>.&lt;/p&gt;</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>TODO为私密内容，为标签正常显示打个点！</p>
+<p>&lt;p&gt;The post <a rel="nofollow" href="https://blog.wanderto.top/2024/04/21/%e6%89%93%e4%b8%aa%e7%82%b9%ef%bc%81/">打个点！</a> first appeared on <a rel="nofollow" href="https://blog.wanderto.top">DB`s Blog</a>.&lt;/p&gt;</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://blog.wanderto.top/2024/04/21/%e6%89%93%e4%b8%aa%e7%82%b9%ef%bc%81/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>一二三四五</title>
+		<link>https://blog.wanderto.top/2024/04/18/12345/</link>
+					<comments>https://blog.wanderto.top/2024/04/18/12345/#comments</comments>
+		
+		<dc:creator><![CDATA[DB]]></dc:creator>
+		<pubDate>Thu, 18 Apr 2024 09:19:42 +0000</pubDate>
+				<category><![CDATA[GGBond]]></category>
+		<category><![CDATA[杂谈]]></category>
+		<guid isPermaLink="false">http://114.55.88.175/?p=726</guid>
+
+					<description><![CDATA[<p>上山打老虎 太空了，随便写个东西凑凑数</p>
+<p>&lt;p&gt;The post <a rel="nofollow" href="https://blog.wanderto.top/2024/04/18/12345/">一二三四五</a> first appeared on <a rel="nofollow" href="https://blog.wanderto.top">DB`s Blog</a>.&lt;/p&gt;</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>上山打老虎</p>
+
+
+
+<p>太空了，随便写个东西凑凑数</p>
+<p>&lt;p&gt;The post <a rel="nofollow" href="https://blog.wanderto.top/2024/04/18/12345/">一二三四五</a> first appeared on <a rel="nofollow" href="https://blog.wanderto.top">DB`s Blog</a>.&lt;/p&gt;</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://blog.wanderto.top/2024/04/18/12345/feed/</wfw:commentRss>
+			<slash:comments>14</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>
