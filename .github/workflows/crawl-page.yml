@@ -70,7 +70,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: dbopen/my-blog:latest,dbopen/my-blog:${{ github.sha } # ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
     
       - name: Generate artifact attestation
