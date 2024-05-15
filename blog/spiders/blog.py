@@ -96,9 +96,9 @@ class QuotesSpider(scrapy.Spider):
             file = Path(path)
             if name.__eq__(paths[-1]):
                 # self.log("file:" + name)
-                if file.exists():
-                    self.log("warn: file exists " + path)
-                    continue
+                # if file.exists():
+                    # self.log("warn: file exists " + path)
+                    # continue
                 file.write_bytes(body)
             else:
                 # self.log("dir:" + name)
