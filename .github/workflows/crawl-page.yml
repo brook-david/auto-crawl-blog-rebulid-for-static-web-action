@@ -89,7 +89,7 @@ jobs:
       - name: Notify
         run: |
           TIMESTAMP=$(date +%s)
-          curl -k --location --request PATCH 'https://114.55.88.175:6443/apis/apps/v1/namespaces/blog-web/deployments/static-blog' \
+          curl -k --location --request PATCH 'https://${{ vars.K8S_HOST }}:6443/apis/apps/v1/namespaces/blog-web/deployments/static-blog' \
           --header 'Authorization: Bearer ${{ secrets.K8S_UPDATE_TOKEN }}' \
           --header 'Content-Type: application/merge-patch+json' \
           --data '{  
