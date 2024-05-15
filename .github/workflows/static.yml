@@ -71,16 +71,17 @@ jobs:
   notify_k8s_deployment_update:
     name: Notify K8s Deployment Update
     runs-on: ubuntu-latest
+    needs: push_to_registry
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Notify
         run: |
           TIMESTAMP=$(date +%s)
-          curl --location --request PATCH 'https://114.55.88.175:6443/apis/apps/v1/namespaces/blog-web/deployments/static-blog' \
+          curl -k --location --request PATCH 'https://114.55.88.175:6443/apis/apps/v1/namespaces/blog-web/deployments/static-blog' \
           --header 'Authorization: Bearer ${{ secrets.K8S_UPDATE_TOKEN }}' \
           --header 'Content-Type: application/merge-patch+json' \
-          --data-raw '{  
+          --data '{  
                    "spec": {  
                        "template": {  
                            "metadata": {  
