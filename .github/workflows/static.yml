@@ -86,7 +86,7 @@ jobs:
                        "template": {  
                            "metadata": {  
                                "annotations": {  
-                                   "issued-timestamp": "$TIMESTAMP"  
+                                   "issued-timestamp": "${TIMESTAMP}"  
                                }  
                            }  
                        }  
