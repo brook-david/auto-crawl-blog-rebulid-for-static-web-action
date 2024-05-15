@@ -40,7 +40,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install scrapy
       - name: Crawl
-        run: scrapy crawl blog && ll .
+        run: scrapy crawl blog
         # Build
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
